@@ -4,13 +4,14 @@ import NoteContext from '../context/noteContext';
 const Noteitem = (props) => {
   const context = useContext(NoteContext);
   const { deleteNote } = context;
-  const { note } = props;
+  const { note, updateNote } = props;
+
   const handleDelete = ()=>{
     deleteNote(note._id);
   }
 
   const handleEdit = ()=>{
-    
+    updateNote(note);
   }
 
   return (
@@ -25,10 +26,7 @@ const Noteitem = (props) => {
             </div>
           </div>
           <p className="card-text my-2">
-            {note.description} Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Doloremque, laborum! Sint harum aperiam temporibus
-            vel! Aspernatur, beatae voluptas excepturi quod impedit veniam
-            consequuntur? Vero voluptas dolore sapiente eius nulla minima!
+            {note.description}
           </p>
         </div>
       </div>
@@ -36,4 +34,4 @@ const Noteitem = (props) => {
   );
 };
 
-export default Noteitem;
+export default Noteitem
