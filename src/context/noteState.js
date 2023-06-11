@@ -15,8 +15,7 @@ const NoteState = ({ children }) => {
       },
     });
     const json = await response.json();
-    console.log(json);
-    setNotes(notes.concat(json));
+    setNotes(json);
   }
 
 
@@ -64,10 +63,10 @@ const NoteState = ({ children }) => {
   };
 
   //Edit a note
-  const editNote = async (id, title, description, tag) => {
+  const editNote = async ({_id, title, description, tag}) => {
     //Later API callout
-    const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-      method: "POST",
+    const response = await fetch(`${host}/api/notes/updatenote/${_id}`, {
+      method: "PUT",
       headers: {
         "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4Mzc1YzVjYzhlYmRmNzM0NGI5ZjAzIn0sImlhdCI6MTY4NjMzNjk2NX0.YdLTD_A-Vcl4CxZGNhyPAD3lsQRuZRHIoHFfR_mKuqo",
         "Content-Type": "application/json",       
@@ -77,15 +76,17 @@ const NoteState = ({ children }) => {
 
     const json = response.json;
 
+    
+    let newNotes = JSON.parse(JSON.stringify(notes));
     for(let index = 0; index < notes.length;index++){
-      const e = notes[index];
-      if(notes._id === id){
-        e.title = title;
-        e.description = description
-        e.tag = tag
-      }
+      if(newNotes[index]._id === _id){
+        newNotes[index].title = title;
+        newNotes[index].description = description
+        newNotes[index].tag = tag
+        break;
+      }      
     }
-
+    setNotes(newNotes);
   };
 
   // const [notes, setNotes] = useState(notesInitial)
