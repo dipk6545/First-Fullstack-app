@@ -32,11 +32,11 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-06-08T20:27:25.366Z",
-    "modified": "2023-06-08T20:33:18.391Z",
+    "modified": "2023-06-13T17:25:39.115Z",
     "headers": [
       {
-        "name": "auth-token",
-        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MjM5MDI3NThiMzIwNTFjOWU5YTRjIn0sImlhdCI6MTY4NjI1NTg3NH0.-H20j5k5hAj4-7nCdkL0idxkmGx6G3oqLHS27OD0GVs"
+        "name": "Content-Type",
+        "value": "application/json"
       }
     ],
     "params": [],
