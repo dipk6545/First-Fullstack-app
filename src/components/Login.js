@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login(props) {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -18,11 +18,12 @@ function Login() {
     if (res.success) {
       // redirect
       localStorage.setItem('token', res.authToken);
+      props.showAlert('Login successful', 'success');
+      setCredentials({ email: '', password: '' });
       navigate('/');
     } else {
-      alert('Enter correct credentials');
-    }
-    setCredentials({ email: '', password: '' });
+      props.showAlert('Enter correct credentials', 'danger');
+    }    
   };
 
   const onChange = (e) => {

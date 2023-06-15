@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Signup() {
+function Signup(props) {
   const [credentials, setCredentials] = useState({ first: '', last: '', email: '', password: '', cpassword: '' });
   const navigate = useNavigate();
 
@@ -9,7 +9,7 @@ function Signup() {
     e.preventDefault();
     let res;
     if (credentials.password !== credentials.cpassword) {
-      alert("Confirm Password doesn't matches password");
+      props.showAlert("Passwords don't match", "warning");
     } else {
       const { first, last, email, password } = credentials;
       const response = await fetch('http://localhost:5000/api/auth/createuser', {
@@ -31,9 +31,10 @@ function Signup() {
       // redirect
       localStorage.setItem('token', res.authToken);
       navigate('/');
+      props.showAlert("User created successfully", "success")
       setCredentials({ first: '', last: '', email: '', password: '', cpassword: '' });
     } else if (res !== undefined) {
-      alert('User exists');
+      props.showAlert('User exists', "danger");
     }
   };
 
