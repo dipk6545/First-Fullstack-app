@@ -11,12 +11,11 @@ const NoteState = ({ children }) => {
     const response = await fetch(`${host}/api/notes/fetchallnotes`, {
       method: 'GET',
       headers: {
-        'auth-token':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4Mzc1YzVjYzhlYmRmNzM0NGI5ZjAzIn0sImlhdCI6MTY4NjMzNjk2NX0.YdLTD_A-Vcl4CxZGNhyPAD3lsQRuZRHIoHFfR_mKuqo',
+        'auth-token': localStorage.getItem('token'),
       },
     });
-    const json = await response.json();
-    setNotes(json);
+    const notes = await response.json();
+    setNotes(notes);
   };
 
   //Add a note
@@ -25,8 +24,7 @@ const NoteState = ({ children }) => {
     const response = await fetch(`${host}/api/notes/addnotes`, {
       method: 'POST',
       headers: {
-        'auth-token':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4Mzc1YzVjYzhlYmRmNzM0NGI5ZjAzIn0sImlhdCI6MTY4NjMzNjk2NX0.YdLTD_A-Vcl4CxZGNhyPAD3lsQRuZRHIoHFfR_mKuqo',
+        'auth-token': localStorage.getItem('token'),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ title, description, tag }),
@@ -46,8 +44,7 @@ const NoteState = ({ children }) => {
     const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
       method: 'DELETE',
       headers: {
-        'auth-token':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4Mzc1YzVjYzhlYmRmNzM0NGI5ZjAzIn0sImlhdCI6MTY4NjMzNjk2NX0.YdLTD_A-Vcl4CxZGNhyPAD3lsQRuZRHIoHFfR_mKuqo',
+        'auth-token': localStorage.getItem('token'),
         'Content-Type': 'application/json',
       },
     });
@@ -61,8 +58,7 @@ const NoteState = ({ children }) => {
     const response = await fetch(`${host}/api/notes/updatenote/${_id}`, {
       method: 'PUT',
       headers: {
-        'auth-token':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4Mzc1YzVjYzhlYmRmNzM0NGI5ZjAzIn0sImlhdCI6MTY4NjMzNjk2NX0.YdLTD_A-Vcl4CxZGNhyPAD3lsQRuZRHIoHFfR_mKuqo',
+        'auth-token': localStorage.getItem('token'),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ title, description, tag }),
@@ -85,7 +81,7 @@ const NoteState = ({ children }) => {
 
   // const [notes, setNotes] = useState(notesInitial)
 
-  return <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getAllNotes }}>{children}</NoteContext.Provider>;
+  return <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getAllNotes, setNotes }}>{children}</NoteContext.Provider>;
 };
 
 export default NoteState;
